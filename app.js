@@ -1,5 +1,5 @@
 const fs = require('fs');// Required in order to use fs module
-const generatePage = require('./src/page-template.js');
+const generatePage = require('Github/portfolio-generator/src/page-template.js');
 
 const profileDataArgs = process.argv.slice(2);
 
