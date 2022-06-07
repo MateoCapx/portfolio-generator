@@ -1,6 +1,7 @@
-const fs = require('fs');
-const inquirer = require('inquirer');
-const generatePage = require('./src/page-template');
+const generateSite = require('./utils/generate-site.js');
+// const fs = require('fs'); //If we need to use the fs library in a file-import it using the Node.js require() 
+const inquirer = require('inquirer');  // In place to be able to use the inquirer package from NPM
+const generatePage = require('./src/page-template'); // Module. Allows us to use a function from 'PAGE - TEMPLATE.JS'
 
 const promptUser = () => {
   return inquirer.prompt([
@@ -121,7 +122,7 @@ Add a New Project
     ])
     .then(projectData => {
       portfolioData.projects.push(projectData);
-      
+
       if (projectData.confirmAddProject) {
         return promptProject(portfolioData);
       } else {
@@ -136,12 +137,16 @@ promptUser()
     
    
     const pageHTML = generatePage(portfolioData);
-    fs.writeFile('./index.html', pageHTML, err => {
-      if (err) throw new Error(err);
+    //Example of a callback function 
+    fs.writeFile('./dist/index.html', pageHTML, err => {
+      if (err) {
+        console.log(err);
+        return;
+      }
       console.log('Page created! Check out index.html in this directory to see it!');
-    });
-  });
-
+    
+    })
+  })
 
 
 
